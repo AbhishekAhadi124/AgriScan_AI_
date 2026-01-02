@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:agri_scan/app/constants/constants.dart';
 import 'package:agri_scan/core/utlis/initial_bindings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -14,7 +15,7 @@ Future<void> main() async {
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   await FirebaseCrashlytics.instance.setCustomKey(
     'app_version',
-    'Version.number',
+    Version.number,
   );
 
   await SystemChrome.setPreferredOrientations([

@@ -32,21 +32,16 @@ class ClassifierService {
   }
 
   Future<String> processImage(File imageFile) async {
-    if (!isInitialized) await initialize();
-
     final rawBytes = await imageFile.readAsBytes();
     final img.Image? fullImage = img.decodeImage(rawBytes);
     if (fullImage == null) return "Error: Failed to decode image.";
     final gateResized = img.copyResize(fullImage, width: 1, height: 1);
     var gateInput = imageToByteList(gateResized, 1);
     var gateOutput = List.filled(1000, 0.0).reshape([1, 1000]);
-
-    gatekeeperInterpreter!.run(gateInput, gateOutput);
-    int gateIdx = getHighestProbIndex(gateOutput[0]);
-    String gateLabel = gatekeeperLabels![gateIdx];
-
+    gatekeeperInterpreter?.run(gateInput, gateOutput);
+    int gateIdx = getHighestProbIndex(List<double>.from(gateOutput[0]));
+    String gateLabel = '${gatekeeperLabels?[gateIdx]}';
     bool isPlant = validatePlantCategory(gateLabel);
-
     if (!isPlant) {
       return "INVALID_PLANT: This looks like a $gateLabel. Please upload a plant image.";
     }
@@ -67,7 +62,6 @@ class ClassifierService {
     for (var i = 0; i < size; i++) {
       for (var j = 0; j < size; j++) {
         var pixel = image.getPixel(j, i);
-        // Normalization: 0-1 range
         buffer[pixelIndex++] = pixel.r / 255.0;
         buffer[pixelIndex++] = pixel.g / 255.0;
         buffer[pixelIndex++] = pixel.b / 255.0;
@@ -105,10 +99,5 @@ class ClassifierService {
       'apple',
     ];
     return plantKeywords.any((keyword) => lowerLabel.contains(keyword));
-  }
-
-  void dispose() {
-    gatekeeperInterpreter?.close();
-    diseaseInterpreter?.close();
   }
 }

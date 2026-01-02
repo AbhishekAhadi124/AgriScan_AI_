@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'dart:io';
 
 class HomeController extends GetxController {
-  final classifierService = ClassifierService();
-  RxBool isLoading = false.obs;
   RxString resultText = ''.obs;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -14,9 +13,9 @@ class HomeController extends GetxController {
   }
 
   Future<void> initializeModel() async {
+    isLoading.value = true;
     try {
-      isLoading.value = true;
-      await classifierService.initialize();
+      await ClassifierService().initialize();
     } catch (e) {
       resultText.value = 'INVALID_PLANT: Failed to load AI models';
     } finally {
@@ -25,20 +24,14 @@ class HomeController extends GetxController {
   }
 
   Future<void> classifyImage(File imageFile) async {
+    isLoading.value = true;
     try {
-      isLoading.value = true;
-      final result = await classifierService.processImage(imageFile);
+      final result = await ClassifierService().processImage(imageFile);
       resultText.value = result;
     } catch (e) {
       resultText.value = 'INVALID_PLANT: Image processing failed';
     } finally {
       isLoading.value = false;
     }
-  }
-
-  @override
-  void onClose() {
-    classifierService.dispose();
-    super.onClose();
   }
 }

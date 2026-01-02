@@ -27,7 +27,7 @@ class HomeState extends State<Home> {
       'new_chat': 'New Chat',
       'about': 'About Us',
       'lang_name': 'Language / भाषा',
-      'sent_photo': 'You: Sent a photo',
+      'sent_photo': 'You sent a photo',
       'analyzing': 'AI: Analyzing plant health...',
     },
     'hi': {
@@ -77,12 +77,12 @@ class HomeState extends State<Home> {
       showInvalidDialog(userMessage);
 
       setState(() {
-        messages.add("AI: ⚠️ Rejected. $userMessage");
+        messages.add("⚠️ Rejected. $userMessage");
       });
     } else {
       setState(() {
         finalResult = "Diagnosis: $result";
-        messages.add("AI: Diagnosis - $result");
+        messages.add(finalResult);
       });
     }
     scrollToBottom();
@@ -91,16 +91,17 @@ class HomeState extends State<Home> {
   void showInvalidDialog(String message) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Invalid Image"),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
+      builder:
+          (context) => AlertDialog(
+            title: const Text("Invalid Image"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("OK"),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -214,7 +215,7 @@ class HomeState extends State<Home> {
       if (mounted) {
         setState(
           () => messages.add(
-            "AI: I am an AI assistant. I can help identify plant diseases if you upload a photo.",
+            "I am an AI assistant. I can help identify plant diseases if you upload a photo.",
           ),
         );
         scrollToBottom();
@@ -231,6 +232,7 @@ class HomeState extends State<Home> {
           t('title'),
           style: const TextStyle(
             fontFamily: 'Poppins',
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -239,11 +241,18 @@ class HomeState extends State<Home> {
       ),
       drawer: Drawer(
         child: SafeArea(
+          top: false,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              DrawerHeader(
-                decoration: const BoxDecoration(color: Color(0xFF4CAF50)),
+              Container(
+                height: 30,
+                padding: EdgeInsets.all(20),
+                color: Color(0xFF4CAF50),
+              ),
+              Container(
+                height: 120,
+                padding: EdgeInsets.all(20),
+                color: Color(0xFF4CAF50),
                 child: Row(
                   children: [
                     Container(
@@ -259,15 +268,14 @@ class HomeState extends State<Home> {
                         color: Colors.white,
                       ),
                     ),
-                    const Expanded(
-                      child: Text(
-                        'AgriScan',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    const SizedBox(width: 20),
+                    Text(
+                      'AgriScan',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -284,6 +292,7 @@ class HomeState extends State<Home> {
                     DropdownMenuItem(value: 'hi', child: Text('हिंदी')),
                     DropdownMenuItem(value: 'mr', child: Text('मराठी')),
                   ],
+                  elevation: 0,
                 ),
               ),
               ListTile(
@@ -319,52 +328,55 @@ class HomeState extends State<Home> {
               itemCount: messages.length,
               itemBuilder: (context, index) {
                 final message = messages[messages.length - 1 - index];
-                final bool isImage = message.startsWith("IMAGE:");
-                final bool isUser = message.startsWith('You:') || isImage;
+                final isImage = message.startsWith("IMAGE:");
+                final isUser = message.startsWith('You:') || isImage;
 
                 return Align(
-                  alignment: isUser
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
+                  alignment:
+                      isUser ? Alignment.centerRight : Alignment.centerLeft,
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: isUser
-                          ? const Color(0xFF4CAF50)
-                          : Colors.grey.shade200,
+                      color:
+                          isUser
+                              ? const Color(0xFF4CAF50)
+                              : Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: isImage
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.file(
-                                  File(message.replaceFirst("IMAGE:", "")),
-                                  width: 200,
-                                  height: 200,
-                                  fit: BoxFit.cover,
+                    child:
+                        isImage
+                            ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.file(
+                                    File(message.replaceFirst("IMAGE:", "")),
+                                    width: 200,
+                                    height: 200,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                t('sent_photo'),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
+                                const SizedBox(height: 5),
+                                Text(
+                                  t('sent_photo'),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
                                 ),
+                              ],
+                            )
+                            : Text(
+                              isUser
+                                  ? message.replaceAll('You: ', '')
+                                  : message,
+                              style: TextStyle(
+                                color: isUser ? Colors.white : Colors.black87,
+                                fontFamily: 'Poppins',
                               ),
-                            ],
-                          )
-                        : Text(
-                            message,
-                            style: TextStyle(
-                              color: isUser ? Colors.white : Colors.black87,
-                              fontFamily: 'Poppins',
                             ),
-                          ),
                   ),
                 );
               },
@@ -404,16 +416,20 @@ class HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide.none,
                       ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 16,
+                      ),
                     ),
-                    onChanged: (val) =>
-                        setState(() => canSend = val.trim().isNotEmpty),
+                    onChanged:
+                        (val) =>
+                            setState(() => canSend = val.trim().isNotEmpty),
                   ),
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(width: 5),
                 CircleAvatar(
-                  backgroundColor: canSend
-                      ? const Color(0xFF4CAF50)
-                      : Colors.grey.shade400,
+                  backgroundColor:
+                      canSend ? const Color(0xFF4CAF50) : Colors.grey.shade400,
                   child: IconButton(
                     icon: const Icon(Icons.send, color: Colors.white, size: 20),
                     onPressed: canSend ? sendMessage : null,
