@@ -28,7 +28,7 @@ class HomeState extends State<Home> {
       'about': 'About Us',
       'lang_name': 'Language / भाषा',
       'sent_photo': 'You sent a photo',
-      'analyzing': 'AI: Analyzing plant health...',
+      'analyzing': 'Analyzing plant health...',
     },
     'hi': {
       'title': 'एग्रीस्कैन एआई',
@@ -39,7 +39,7 @@ class HomeState extends State<Home> {
       'about': 'हमारे बारे में',
       'lang_name': 'भाषा चुनें',
       'sent_photo': 'आपने एक फोटो भेजी',
-      'analyzing': 'एआई: विश्लेषण कर रहा हूँ...',
+      'analyzing': 'विश्लेषण कर रहा हूँ...',
     },
     'mr': {
       'title': 'एग्रीस्कॅन एआय',
@@ -50,7 +50,7 @@ class HomeState extends State<Home> {
       'about': 'आमच्याबद्दल',
       'lang_name': 'भाषा निवडा',
       'sent_photo': 'तुम्ही फोटो पाठवला आहे',
-      'analyzing': 'एआय: विश्लेषण करत आहे...',
+      'analyzing': 'विश्लेषण करत आहे...',
     },
   };
 
