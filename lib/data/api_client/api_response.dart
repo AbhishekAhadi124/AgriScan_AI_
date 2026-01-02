@@ -24,5 +24,7 @@ class ApiResponse<T> {
   factory ApiResponse.fromJson(Map<String, dynamic> json) =>
       _$ApiResponseFromJson(json);
 
+  get statusCode => null;
+
   Map<String, dynamic> toJson() => _$ApiResponseToJson(this);
 }

@@ -51,7 +51,7 @@ class _SplashState extends State<Splash> {
               ),
               const SizedBox(height: 24),
               const Text(
-                "AgriScan AI",
+                "AgriScan",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

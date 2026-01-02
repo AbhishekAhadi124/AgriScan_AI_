@@ -53,7 +53,7 @@ class AboutUs extends StatelessWidget {
             const SizedBox(height: 16),
             // App Title
             const Text(
-              'AgriScan AI',
+              'AgriScan',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -91,7 +91,7 @@ class AboutUs extends StatelessWidget {
                         const Icon(Icons.info, color: Color(0xFF4CAF50)),
                         const SizedBox(width: 8),
                         const Text(
-                          'About AgriScan AI',
+                          'About AgriScan',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -102,7 +102,7 @@ class AboutUs extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      'AgriScan AI is an innovative mobile app designed for farmers and agricultural professionals. Using advanced AI and machine learning, it helps detect plant diseases from photos, providing instant analysis and recommendations to protect crops and improve yields.',
+                      'AgriScan is an innovative mobile app designed for farmers and agricultural professionals. Using advanced AI and machine learning, it helps detect plant diseases from photos, providing instant analysis and recommendations to protect crops and improve yields.',
                       style: TextStyle(fontFamily: 'Poppins'),
                     ),
                   ],

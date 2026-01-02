@@ -24,8 +24,10 @@ class ApiClient extends GetConnect {
       if (isAuth) {
         headers['Authorization'] = "Bearer ${await getToken()}";
       }
-      Response response =
-          await httpClient.get('$url$endPoint', headers: headers);
+      Response response = await httpClient.get(
+        '$url$endPoint',
+        headers: headers,
+      );
       return returnResponse<T>(response);
     } catch (error) {
       Logger.log('$error');
@@ -33,16 +35,23 @@ class ApiClient extends GetConnect {
     }
   }
 
-  Future<ApiResponse<T>> postRequest<T>(String endPoint, BaseModel data,
-      {isAuth = true}) async {
+  Future<ApiResponse<T>> postRequest<T>(
+    String endPoint,
+    BaseModel data, {
+    isAuth = true,
+  }) async {
     try {
       await isNetworkConnected();
       Map<String, String> headers = {};
       if (isAuth) {
         headers['Authorization'] = "Bearer ${await getToken()}";
       }
-      Response response = await httpClient.post('$url$endPoint',
-          headers: headers, body: data.toJson());
+      //dev.debugger();
+      Response response = await httpClient.post(
+        '$url$endPoint',
+        headers: headers,
+        body: data.toJson(),
+      );
       return returnResponse<T>(response);
     } catch (error) {
       Logger.log('$error');
@@ -50,8 +59,13 @@ class ApiClient extends GetConnect {
     }
   }
 
-  Future<ApiResponse<T>> postRequestWithFile<T>(String endPoint, BaseModel data,
-      {bool isAuth = true, File? file, String fieldName = 'file'}) async {
+  Future<ApiResponse<T>> postRequestWithFile<T>(
+    String endPoint,
+    BaseModel data, {
+    bool isAuth = true,
+    File? file,
+    String fieldName = 'file',
+  }) async {
     try {
       await isNetworkConnected();
       Map<String, String> headers = {};
@@ -70,8 +84,11 @@ class ApiClient extends GetConnect {
         );
       }
 
-      Response response = await httpClient.post('$url$endPoint',
-          headers: headers, body: formData);
+      Response response = await httpClient.post(
+        '$url$endPoint',
+        headers: headers,
+        body: formData,
+      );
 
       return returnResponse<T>(response);
     } catch (error) {
@@ -81,8 +98,12 @@ class ApiClient extends GetConnect {
   }
 
   Future<ApiResponse<T>> postRequestWithFormData<T>(
-      String endPoint, FormData formData,
-      {bool isAuth = true, File? file, String field = 'file'}) async {
+    String endPoint,
+    FormData formData, {
+    bool isAuth = true,
+    File? file,
+    String field = 'file',
+  }) async {
     try {
       await isNetworkConnected();
       Map<String, String> headers = {};
@@ -97,8 +118,11 @@ class ApiClient extends GetConnect {
           ),
         );
       }
-      Response response = await httpClient.post('$url$endPoint',
-          headers: headers, body: formData);
+      Response response = await httpClient.post(
+        '$url$endPoint',
+        headers: headers,
+        body: formData,
+      );
       return returnResponse<T>(response);
     } catch (error) {
       Logger.log('$error');
@@ -107,13 +131,13 @@ class ApiClient extends GetConnect {
   }
 
   Future<ApiResponse<T>> postListRequest<T>(
-      String endPoint, List<BaseModel> dataList,
-      {isAuth = true}) async {
+    String endPoint,
+    List<BaseModel> dataList, {
+    isAuth = true,
+  }) async {
     try {
       await isNetworkConnected();
-      Map<String, String> headers = {
-        'Content-Type': 'application/json',
-      };
+      Map<String, String> headers = {'Content-Type': 'application/json'};
       if (isAuth) {
         headers['Authorization'] = "Bearer ${await getToken()}";
       }
@@ -130,16 +154,22 @@ class ApiClient extends GetConnect {
     }
   }
 
-  Future<ApiResponse<T>> putRequest<T>(String endPoint, BaseModel data,
-      {isAuth = true}) async {
+  Future<ApiResponse<T>> putRequest<T>(
+    String endPoint,
+    BaseModel data, {
+    isAuth = true,
+  }) async {
     try {
       await isNetworkConnected();
       Map<String, String> headers = {};
       if (isAuth) {
         headers['Authorization'] = "Bearer ${await getToken()}";
       }
-      Response response = await httpClient.put('$url$endPoint',
-          headers: headers, body: data.toJson());
+      Response response = await httpClient.put(
+        '$url$endPoint',
+        headers: headers,
+        body: data.toJson(),
+      );
       return returnResponse<T>(response);
     } catch (error) {
       Logger.log('$error');
@@ -147,16 +177,20 @@ class ApiClient extends GetConnect {
     }
   }
 
-  Future<ApiResponse<T>> deleteRequest<T>(String endPoint,
-      {isAuth = true}) async {
+  Future<ApiResponse<T>> deleteRequest<T>(
+    String endPoint, {
+    isAuth = true,
+  }) async {
     try {
       await isNetworkConnected();
       Map<String, String> headers = {};
       if (isAuth) {
         headers['Authorization'] = "Bearer ${await getToken()}";
       }
-      Response response =
-          await httpClient.delete('$url$endPoint', headers: headers);
+      Response response = await httpClient.delete(
+        '$url$endPoint',
+        headers: headers,
+      );
       return returnResponse<T>(response);
     } catch (error) {
       Logger.log('$error');
@@ -172,11 +206,14 @@ class ApiClient extends GetConnect {
 
   Future<String> getToken() async {
     var token = Get.find<PrefUtils>().getToken();
-      RefreshRequest refreshRequest = RefreshRequest();
+    RefreshRequest refreshRequest = RefreshRequest();
     if (token == 'refresh_token') {
       refreshRequest.refresh = Get.find<PrefUtils>().getRefreshToken();
-      var response = await postRequest('/auth/token/refresh/', refreshRequest,
-          isAuth: false);
+      var response = await postRequest(
+        '/auth/token/refresh/',
+        refreshRequest,
+        isAuth: false,
+      );
       var data = LoginResponse.fromJson(response.data);
       Get.find<PrefUtils>().setUser(data);
       Get.find<PrefUtils>().setIsLogin(true);
@@ -237,15 +274,24 @@ class ApiClient extends GetConnect {
     var errors = response.body;
     switch (response.statusCode) {
       case 400:
-        throw BadRequestException(errors["data"].toString(),
-            status: errors["status"], time: errors["time"]);
+        throw BadRequestException(
+          errors["data"].toString(),
+          status: errors["status"],
+          time: errors["time"],
+        );
       case 401:
       case 403:
-        throw UnauthorizeException(errors["message"],
-            status: errors["status"], time: errors["time"]);
+        throw UnauthorizeException(
+          errors["message"],
+          status: errors["status"],
+          time: errors["time"],
+        );
       case 404:
-        throw BadRequestException(errors["message"],
-            status: errors["status"], time: errors["time"]);
+        throw BadRequestException(
+          errors["message"],
+          status: errors["status"],
+          time: errors["time"],
+        );
       case 500:
         throw ServerException(errors['message']);
       default:

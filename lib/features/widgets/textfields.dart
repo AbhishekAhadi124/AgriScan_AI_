@@ -10,8 +10,9 @@ Widget buildTextField({
   return Expanded(
     child: TextSelectionTheme(
       data: const TextSelectionThemeData(
-          selectionColor: Color(0x25000000),
-          selectionHandleColor: Color(0xFF333333)),
+        selectionColor: Color(0x25000000),
+        selectionHandleColor: Color(0xFF333333),
+      ),
       child: SizedBox(
         height: 50,
         child: TextField(
@@ -25,10 +26,11 @@ Widget buildTextField({
           decoration: InputDecoration(
             labelText: labeltext,
             labelStyle: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? const Color(0xFFCCCCCC)
-                    : const Color(0xFF1A1A1A),
-                fontSize: 14),
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? const Color(0xFFCCCCCC)
+                  : const Color(0xFF1A1A1A),
+              fontSize: 14,
+            ),
             filled: false,
             // enabledBorder: outlineBorder(context),
             // disabledBorder: outlineBorder(context),
