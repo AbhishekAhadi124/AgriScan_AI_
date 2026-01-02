@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:agri_scan/features/home/controllers/home_controller.dart';
+import 'package:agri_scan/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:agri_scan/features/about_us/about_us.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,18 +22,18 @@ class HomeState extends State<Home> {
     'en': {
       'title': 'AgriScan AI',
       'welcome':
-          'AI: Hello! I\'m AgriScan. Ask about plant diseases or upload a photo.',
+          'Hello! I\'m AgriScan. Ask about plant diseases or upload a photo.',
       'hint': 'Ask about plant diseases...',
       'new_chat': 'New Chat',
       'about': 'About Us',
-      'lang_name': 'Language / भाषा',
+      'lang_name': 'Language',
       'sent_photo': 'You sent a photo',
       'analyzing': 'Analyzing plant health...',
     },
     'hi': {
       'title': 'एग्रीस्कैन एआई',
       'welcome':
-          'एआई: नमस्ते! मैं एग्रीस्कैन हूँ। पौधों की बीमारियों के बारे में पूछें।',
+          'नमस्ते! मैं एग्रीस्कैन हूँ। पौधों की बीमारियों के बारे में पूछें।',
       'hint': 'पौधों की बीमारी के बारे में पूछें...',
       'new_chat': 'नई चैट',
       'about': 'हमारे बारे में',
@@ -43,8 +43,7 @@ class HomeState extends State<Home> {
     },
     'mr': {
       'title': 'एग्रीस्कॅन एआय',
-      'welcome':
-          'एआय: नमस्कार! मी एग्रीस्कॅन आहे. वनस्पतींच्या रोगांबद्दल विचारा.',
+      'welcome': 'नमस्कार! मी एग्रीस्कॅन आहे. वनस्पतींच्या रोगांबद्दल विचारा.',
       'hint': 'रोगांबद्दल विचारा...',
       'new_chat': 'नवीन चॅट',
       'about': 'आमच्याबद्दल',
@@ -138,7 +137,6 @@ class HomeState extends State<Home> {
       );
 
       if (image != null) {
-        // Send message first, which triggers processImage
         sendMessageWithAttachment(image.path, "");
       }
     } catch (e) {
@@ -205,8 +203,6 @@ class HomeState extends State<Home> {
       messages.add(t('analyzing'));
     });
     scrollToBottom();
-
-    // TRIGGER THE LOGIC HERE
     processImage(File(path));
   }
 
@@ -298,21 +294,12 @@ class HomeState extends State<Home> {
               ListTile(
                 leading: const Icon(Icons.chat, color: Color(0xFF4CAF50)),
                 title: Text(t('new_chat')),
-                onTap: () {
-                  setState(() => messages.clear());
-                  Navigator.pop(context);
-                },
+                onTap: () => Get.offAllNamed(MyRoutes.homeRoute),
               ),
               ListTile(
                 leading: const Icon(Icons.info, color: Color(0xFF4CAF50)),
                 title: Text(t('about')),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AboutUs()),
-                  );
-                },
+                onTap: () => Get.offAllNamed(MyRoutes.aboutUsRoute),
               ),
             ],
           ),

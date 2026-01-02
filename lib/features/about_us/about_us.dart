@@ -1,3 +1,4 @@
+import 'package:agri_scan/app/constants/constants.dart';
 import 'package:agri_scan/features/home/home.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,11 @@ class AboutUs extends StatelessWidget {
         ),
         title: const Text(
           'About Us',
-          style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: const Color(0xFF4CAF50),
         foregroundColor: Colors.white,
@@ -29,7 +34,6 @@ class AboutUs extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // App Logo/Icon
             Container(
               width: 120,
               height: 120,
@@ -50,8 +54,7 @@ class AboutUs extends StatelessWidget {
               ),
               child: const Icon(Icons.eco, size: 80, color: Colors.white),
             ),
-            const SizedBox(height: 16),
-            // App Title
+            const SizedBox(height: 10),
             const Text(
               'AgriScan',
               style: TextStyle(
@@ -59,23 +62,21 @@ class AboutUs extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF4CAF50),
                 fontFamily: 'Poppins',
+                height: 1,
               ),
             ),
-            const SizedBox(height: 8),
-
-            // Tagline
+            const SizedBox(height: 10),
             const Text(
               'Detect Plant Diseases Instantly with AI',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.grey,
                 fontFamily: 'Poppins',
+                height: 1,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
-
-            // About Section
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -103,15 +104,13 @@ class AboutUs extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Text(
                       'AgriScan is an innovative mobile app designed for farmers and agricultural professionals. Using advanced AI and machine learning, it helps detect plant diseases from photos, providing instant analysis and recommendations to protect crops and improve yields.',
-                      style: TextStyle(fontFamily: 'Poppins'),
+                      style: TextStyle(fontFamily: 'Poppins', height: 1.25),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-
-            // Mission Section
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -139,15 +138,13 @@ class AboutUs extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Text(
                       'To empower farmers with cutting-edge technology, enabling early disease detection and sustainable farming practices for a healthier planet.',
-                      style: TextStyle(fontFamily: 'Poppins'),
+                      style: TextStyle(fontFamily: 'Poppins', height: 1.25),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-
-            // Team Section
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -175,15 +172,13 @@ class AboutUs extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Text(
                       'Developed by a team of AI experts, agronomists, and developers passionate about agriculture. We collaborate with farmers worldwide to build tools that make a difference.',
-                      style: TextStyle(fontFamily: 'Poppins'),
+                      style: TextStyle(fontFamily: 'Poppins', height: 1.25),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-
-            // Contact Section
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -214,32 +209,30 @@ class AboutUs extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Text(
                       'Email: support@agriscan.ai\nPhone: +1 (123) 456-7890\nWebsite: www.agriscan.ai',
-                      style: TextStyle(fontFamily: 'Poppins'),
+                      style: TextStyle(fontFamily: 'Poppins', height: 1.25),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-
-            // Version Info
             const Text(
-              'Version 1.0.0',
+              'Version ${Version.number}',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
                 fontFamily: 'Poppins',
+                height: 1,
               ),
             ),
-            const SizedBox(height: 24),
-
-            // Footer
+            const SizedBox(height: 20),
             const Text(
               'Powered by AI for Farmers',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: Colors.grey,
                 fontFamily: 'Poppins',
+                height: 1,
               ),
             ),
           ],
